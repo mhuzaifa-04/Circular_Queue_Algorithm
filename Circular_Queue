@@ -1,0 +1,116 @@
+#include<stdio.h>
+#include<stdbool.h>
+#define MAX 1
+int arr[MAX];
+int rear = -1; int front = -1; int temp;
+
+int nextRear(){
+  return (rear+1)%MAX ; 
+}
+
+int nextFront(){
+  return (front+1)%MAX;
+}
+
+bool isFull(){
+ return nextRear() == front;  
+}
+
+bool isEmpty(){
+  return rear == -1 && front == -1;
+}
+
+void enqueue(int arr[], int value){
+  if(isFull()){
+    printf("Overflow\n");
+    return;
+  }  
+  
+  if(rear == -1 && front == -1){
+    rear = 0 ; front = 0;
+  }
+  else {
+    rear = nextRear();
+  }
+   arr[rear] = value;
+   printf("Enqueued : %d\n",arr[rear]);
+}
+
+void dequeue(int arr[]){
+  if(isEmpty()){
+    printf("Underflow\n");
+    return;
+  }
+  
+  if(rear == front){
+    temp = arr[front];
+     rear =-1; front = -1;
+  }
+  
+  else {
+    temp = arr[front];
+    front = nextFront();
+  }
+     printf("%d\n",temp);
+}
+
+void peek(int arr[]){
+  if(isEmpty()){
+    printf("Stack is Empty\n");
+    return;
+  }
+    printf("%d",arr[front]);
+}
+
+void display(int arr[]){
+    if(isEmpty()){
+        printf("Stack is Empty\n");
+        return;
+    }
+    int i;
+  for(i=front ; i<=rear ; i++){
+      printf("%d\n",arr[i]);
+  }    
+}
+void main(){
+  int choice , value;
+  
+ 
+  
+  while(1){
+    printf("1. Enqueue\n");
+    printf("2. Dequeue\n");
+    printf("3. Peek\n");
+    printf("4. Display\n");
+    printf("5. Exit\n");
+  
+   printf("Enter your Choice:");
+  scanf("%d",&choice);
+    switch(choice){
+      case 1 :  printf("Enter value:");
+                scanf("%d",&value);
+                enqueue(arr,value);
+                break;
+      case 2 : dequeue(arr);
+                break;
+      case 3 : peek(arr);
+                break;  
+      case 4 : display(arr);
+               break;
+      case 5 : return;
+      default : printf("Invalid Choice");
+    }
+  }
+  printf("Thanks for using.");
+}
+
+
+
+
+
+
+
+
+
+
+
